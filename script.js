@@ -1,6 +1,6 @@
 let cena, camera, renderizador, formaAtual;
 
-// Inicializa a cena 3D, a câmera, o renderizador e a iluminação
+// Inicializa a cena 3D, configura a câmera, o renderizador e a iluminação
 function init() {
     cena = new THREE.Scene(); 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
@@ -23,13 +23,13 @@ function init() {
     animate(); 
 }
 
-// Anima a cena continuamente
+// Anima a cena continuamente chamando o renderizador
 function animate() {
     requestAnimationFrame(animate);
     renderizador.render(cena, camera); 
 }
 
-// Limpa a cena atual removendo a forma atual, se houver
+// Limpa a cena atual removendo a forma atual
 function limparCena() {
     if (formaAtual) { 
         cena.remove(formaAtual); 
@@ -39,7 +39,7 @@ function limparCena() {
     }
 }
 
-// Adiciona um cubo à cena
+// Adiciona um cubo
 function adicionarCubo() {
     limparCena(); 
     const geometria = new THREE.BoxGeometry(); 
@@ -48,7 +48,7 @@ function adicionarCubo() {
     cena.add(formaAtual); 
 }
 
-// Adiciona uma esfera à cena
+// Adiciona uma esfera
 function adicionarEsfera() {
     limparCena(); 
     const geometria = new THREE.SphereGeometry(1, 32, 32);
@@ -57,7 +57,7 @@ function adicionarEsfera() {
     cena.add(formaAtual); 
 }
 
-// Adiciona uma pirâmide à cena
+// Adiciona uma pirâmide
 function adicionarPiramide() {
     limparCena(); 
     const geometria = new THREE.ConeGeometry(1, 2, 4); 
@@ -66,7 +66,7 @@ function adicionarPiramide() {
     cena.add(formaAtual); 
 }
 
-// Gerencia o estado ativo dos botões
+// Gerencia o estado ativo dos botões, adicionando a classe 'active' ao botão selecionado
 function ativarBotao(id) {
     document.querySelectorAll('button').forEach(btn => btn.classList.remove('active')); 
     document.getElementById(id).classList.add('active'); 
@@ -90,4 +90,3 @@ document.getElementById('piramide').addEventListener('click', () => {
 
 // Inicia a cena
 init();
-
