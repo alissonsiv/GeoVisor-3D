@@ -15,19 +15,27 @@ body {
     top: 10px;
     left: 10px;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 button {
     background-color: #61dafb;
     border: none;
     padding: 10px 15px;
-    margin: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #21a1f1;
+}
+
+button.active {
+    background-color: #ff5733;
+    color: white;
 }
 
 #container {
