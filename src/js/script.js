@@ -1,18 +1,18 @@
-let cena, camera, renderizador, formaAtual;
+let scene, camera, renderer, currentShape;
 
 function init() {
-    if (cena) {
-        limparCena();
+    if (scene) {
+        clearScene();
     } else {
-        cena = new THREE.Scene();
+        scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderizador = new THREE.WebGLRenderer({ antialias: true });
-        renderizador.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('render-container').appendChild(renderizador.domElement);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('render-container').appendChild(renderer.domElement);
 
-        const luz = new THREE.DirectionalLight(0xffffff, 1);
-        luz.position.set(5, 5, 5).normalize();
-        cena.add(luz);
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 5, 5).normalize();
+        scene.add(light);
 
         camera.position.set(0, 2, 5);
         camera.lookAt(0, 0, 0);
@@ -22,86 +22,86 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    if (formaAtual) {
-        formaAtual.rotation.x += 0.01;
-        formaAtual.rotation.y += 0.01;
+    if (currentShape) {
+        currentShape.rotation.x += 0.01;
+        currentShape.rotation.y += 0.01;
     }
-    renderizador.render(cena, camera);
+    renderer.render(scene, camera);
 }
 
-function limparCena() {
-    if (formaAtual) {
-        cena.remove(formaAtual);
-        formaAtual.geometry.dispose();
-        formaAtual.material.dispose();
-        formaAtual = null;
+function clearScene() {
+    if (currentShape) {
+        scene.remove(currentShape);
+        currentShape.geometry.dispose();
+        currentShape.material.dispose();
+        currentShape = null;
     }
 }
 
-function adicionarCubo() {
-    limparCena();
-    const geometria = new THREE.BoxGeometry();
+function addCube() {
+    clearScene();
+    const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshPhongMaterial({ color: 0xff5733 });
-    formaAtual = new THREE.Mesh(geometria, material);
-    formaAtual.position.y = 1.5;  
-    cena.add(formaAtual);
+    currentShape = new THREE.Mesh(geometry, material);
+    currentShape.position.y = 1.5;  
+    scene.add(currentShape);
 }
 
-function adicionarEsfera() {
-    limparCena();
-    const geometria = new THREE.SphereGeometry(1, 32, 32);
+function addSphere() {
+    clearScene();
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
     const material = new THREE.MeshPhongMaterial({ color: 0x33ff57 });
-    formaAtual = new THREE.Mesh(geometria, material);
-    formaAtual.position.y = 1.5;
-    cena.add(formaAtual);
+    currentShape = new THREE.Mesh(geometry, material);
+    currentShape.position.y = 1.5;
+    scene.add(currentShape);
 }
 
-function adicionarPiramide() {
-    limparCena();
-    const geometria = new THREE.ConeGeometry(1, 2, 4);
+function addPyramid() {
+    clearScene();
+    const geometry = new THREE.ConeGeometry(1, 2, 4);
     const material = new THREE.MeshPhongMaterial({ color: 0x3357ff });
-    formaAtual = new THREE.Mesh(geometria, material);
-    formaAtual.position.y = 1.5; 
-    cena.add(formaAtual);
+    currentShape = new THREE.Mesh(geometry, material);
+    currentShape.position.y = 1.5; 
+    scene.add(currentShape);
 }
 
-function resetarCena() {
-    limparCena();
+function resetScene() {
+    clearScene();
 }
 
-function ativarBotao(id) {
+function activateButton(id) {
     document.querySelectorAll('.button-container button').forEach(btn => btn.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
-document.getElementById('cubo').addEventListener('click', () => {
-    ativarBotao('cubo');
-    adicionarCubo();
+document.getElementById('cube').addEventListener('click', () => {
+    activateButton('cube');
+    addCube();
 });
 
-document.getElementById('esfera').addEventListener('click', () => {
-    ativarBotao('esfera');
-    adicionarEsfera();
+document.getElementById('sphere').addEventListener('click', () => {
+    activateButton('sphere');
+    addSphere();
 });
 
-document.getElementById('piramide').addEventListener('click', () => {
-    ativarBotao('piramide');
-    adicionarPiramide();
+document.getElementById('pyramid').addEventListener('click', () => {
+    activateButton('pyramid');
+    addPyramid();
 });
 
 document.getElementById('reset').addEventListener('click', () => {
-    ativarBotao('reset');
-    resetarCena();
+    activateButton('reset');
+    resetScene();
 });
 
-document.getElementById('voltar').addEventListener('click', () => {
+document.getElementById('back').addEventListener('click', () => {
     document.getElementById('menu').style.display = 'none';
-    document.getElementById('tela-inicial').style.display = 'flex';
+    document.getElementById('initial-screen').style.display = 'flex';
     document.getElementById('render-container').style.display = 'none'; 
 });
 
-document.getElementById('iniciar').addEventListener('click', () => {
-    document.getElementById('tela-inicial').style.display = 'none';
+document.getElementById('start').addEventListener('click', () => {
+    document.getElementById('initial-screen').style.display = 'none';
     document.getElementById('menu').style.display = 'flex';
     document.getElementById('render-container').style.display = 'block';
     init();
@@ -110,5 +110,5 @@ document.getElementById('iniciar').addEventListener('click', () => {
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderizador.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 });
