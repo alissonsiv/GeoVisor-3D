@@ -1,18 +1,22 @@
 let cena, camera, renderizador, formaAtual;
 
 function init() {
-    cena = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    renderizador = new THREE.WebGLRenderer({ antialias: true });
-    renderizador.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('render-container').appendChild(renderizador.domElement);
+    if (cena) {
+        limparCena();
+    } else {
+        cena = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        renderizador = new THREE.WebGLRenderer({ antialias: true });
+        renderizador.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('render-container').appendChild(renderizador.domElement);
 
-    const luz = new THREE.DirectionalLight(0xffffff, 1);
-    luz.position.set(5, 5, 5).normalize();
-    cena.add(luz);
+        const luz = new THREE.DirectionalLight(0xffffff, 1);
+        luz.position.set(5, 5, 5).normalize();
+        cena.add(luz);
 
-    camera.position.set(0, 2, 5);
-    camera.lookAt(0, 0, 0);  
+        camera.position.set(0, 2, 5);
+        camera.lookAt(0, 0, 0);
+    }
     animate();
 }
 
@@ -93,6 +97,7 @@ document.getElementById('reset').addEventListener('click', () => {
 document.getElementById('voltar').addEventListener('click', () => {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('tela-inicial').style.display = 'flex';
+    document.getElementById('render-container').style.display = 'none'; 
 });
 
 document.getElementById('iniciar').addEventListener('click', () => {
