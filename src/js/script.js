@@ -1,4 +1,5 @@
 let scene, camera, renderer, currentShape;
+let isAnimating = false; 
 
 function init() {
     if (scene) {
@@ -17,10 +18,15 @@ function init() {
         camera.position.set(0, 2, 5);
         camera.lookAt(0, 0, 0);
     }
-    animate();
+    if (!isAnimating) { 
+        isAnimating = true;
+        animate();
+    }
 }
 
 function animate() {
+    if (!isAnimating) return; 
+
     requestAnimationFrame(animate);
     if (currentShape) {
         currentShape.rotation.x += 0.01;
@@ -32,7 +38,7 @@ function animate() {
 function clearScene() {
     if (currentShape) {
         scene.remove(currentShape);
-        currentShape.geometry .dispose();
+        currentShape.geometry.dispose();
         currentShape.material.dispose();
         currentShape = null;
     }
@@ -115,7 +121,8 @@ document.getElementById('reset').addEventListener('click', () => {
 document.getElementById('back').addEventListener('click', () => {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('initial-screen').style.display = 'flex';
-    document.getElementById('render-container').style.display = 'none'; 
+    document.getElementById('render-container').style.display = 'none';
+    isAnimating = false; 
 });
 
 document.getElementById('start').addEventListener('click', () => {
