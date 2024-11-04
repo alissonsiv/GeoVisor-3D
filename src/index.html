@@ -6,6 +6,7 @@
     <title>GeoVisor 3D</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="container">
@@ -17,12 +18,30 @@
 
         <div id="menu" style="display: none;">
             <h1>Formas 3D</h1>
-            <div class="button-container">
-                <button id="cube"><span>🟦</span> Cubo</button>
-                <button id="sphere"><span>⚪</span> Esfera</button>
-                <button id="pyramid"><span>🔺</span> Pirâmide</button>
-                <button id="reset"><span>🔄</span> Reset</button>
-                <button id="back"><span>🔙</span> Voltar</button>
+
+            <div class="category">
+                <h2>Formas</h2>
+                <div class="button-container">
+                    <button id="cube"><i class="fas fa-cube"></i> Cubo</button>
+                    <button id="sphere"><i class="fas fa-circle"></i> Esfera</button>
+                    <button id="pyramid"><i class="fas fa-exclamation-triangle"></i> Pirâmide</button>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Iluminação</h2>
+                <div class="button-container">
+                    <button id="addLight"><i class="fas fa-lightbulb"></i> Adicionar Luz</button>
+                    <button id="toggleGrid"><i class="fas fa-th"></i> Ativar/Desativar Grade</button>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Configurações</h2>
+                <div class="button-container">
+                    <button id="reset"><i class="fas fa-redo"></i> Reset</button>
+                    <button id="back"><i class="fas fa-arrow-left"></i> Voltar</button>
+                </div>
             </div>
         </div>
 

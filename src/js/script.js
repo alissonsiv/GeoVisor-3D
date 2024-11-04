@@ -1,4 +1,4 @@
-let scene, camera, renderer, currentShape;
+let scene, camera, renderer, currentShape, gridHelper, directionalLight;
 let isAnimating = false; 
 
 function init() {
@@ -11,9 +11,9 @@ function init() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('render-container').appendChild(renderer.domElement);
 
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 5, 5).normalize();
-        scene.add(light);
+        directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
 
         camera.position.set(0, 2, 5);
         camera.lookAt(0, 0, 0);
@@ -42,6 +42,10 @@ function clearScene() {
         currentShape.material.dispose();
         currentShape = null;
     }
+    if (gridHelper) {
+        scene.remove(gridHelper);
+        gridHelper = null;
+    }
 }
 
 function addCube() {
@@ -50,7 +54,6 @@ function addCube() {
     const material = new THREE.MeshPhongMaterial({ color: 0xff5733 });
     currentShape = new THREE.Mesh(geometry, material);
     currentShape.position.y = 1.5;  
-    currentShape.scale.set(0, 0, 0); 
     scene.add(currentShape);
     animateShape(currentShape); 
 }
@@ -61,7 +64,6 @@ function addSphere() {
     const material = new THREE.MeshPhongMaterial({ color: 0x33ff57 });
     currentShape = new THREE.Mesh(geometry, material);
     currentShape.position.y = 1.5;
-    currentShape.scale.set(0, 0, 0); 
     scene.add(currentShape);
     animateShape(currentShape); 
 }
@@ -72,7 +74,6 @@ function addPyramid() {
     const material = new THREE.MeshPhongMaterial({ color: 0x3357ff });
     currentShape = new THREE.Mesh(geometry, material);
     currentShape.position.y = 1.5; 
-    currentShape.scale.set(0, 0, 0); 
     scene.add(currentShape);
     animateShape(currentShape); 
 }
@@ -98,6 +99,27 @@ function activateButton(id) {
     document.getElementById(id).classList.add('active');
 }
 
+function addLight() {
+    if (directionalLight) {
+        scene.remove(directionalLight);
+        directionalLight = null;
+    } else {
+        directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5).normalize();
+        scene.add(directionalLight);
+    }
+}
+
+function toggleGrid() {
+    if (gridHelper) {
+        scene.remove(gridHelper);
+        gridHelper = null;
+    } else {
+        gridHelper = new THREE.GridHelper(10, 10);
+        scene.add(gridHelper);
+    }
+}
+
 document.getElementById('cube').addEventListener('click', () => {
     activateButton('cube');
     addCube();
@@ -118,6 +140,16 @@ document.getElementById('reset').addEventListener('click', () => {
     resetScene();
 });
 
+document.getElementById('addLight').addEventListener('click', () => {
+    activateButton('addLight');
+    addLight();
+});
+
+document.getElementById('toggleGrid').addEventListener('click', () => {
+    activateButton('toggleGrid');
+    toggleGrid();
+});
+
 document.getElementById('back').addEventListener('click', () => {
     document.getElementById('menu').style.display = 'none';
     document.getElementById('initial-screen').style.display = 'flex';
@@ -129,7 +161,5 @@ document.getElementById('start').addEventListener('click', () => {
     document.getElementById('initial-screen').style.display = 'none'; 
     document.getElementById('menu').style.display = 'flex'; 
     document.getElementById('render-container').style.display = 'block'; 
-    init(); 
+    init();
 });
-
-init();
