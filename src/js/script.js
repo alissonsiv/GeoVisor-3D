@@ -135,6 +135,38 @@ document.getElementById('pyramid').addEventListener('click', () => {
     addPyramid();
 });
 
+function addCylinder() {
+    clearScene();
+    const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+    const material = new THREE.MeshPhongMaterial({ color: 0xffff33 });
+    currentShape = new THREE.Mesh(geometry, material);
+    currentShape.position.y = 1; 
+    scene.add(currentShape);
+    animateShape(currentShape); 
+}
+
+function addCone() {
+    clearScene();
+    const geometry = new THREE.ConeGeometry(1, 2, 32);
+    const material = new THREE.MeshPhongMaterial({ color: 0xff33ff });
+    currentShape = new THREE.Mesh(geometry, material);
+    currentShape.position.y = 1; 
+    scene.add(currentShape);
+    animateShape(currentShape); 
+}
+
+// Adicionar eventos para os novos botões
+document.getElementById('cylinder').addEventListener('click', () => {
+    activateButton('cylinder');
+    addCylinder();
+});
+
+document.getElementById('cone').addEventListener('click', () => {
+    activateButton('cone');
+    addCone();
+});
+
+
 document.getElementById('reset').addEventListener('click', () => {
     activateButton('reset');
     resetScene();
