@@ -42,6 +42,9 @@ function createShape(shape) {
     const material = new THREE.MeshStandardMaterial({ color: 0x007bff });
     currentObject = new THREE.Mesh(geometry, material);
     scene.add(currentObject);
+
+    resetButtonSelection();
+    document.getElementById(shape).classList.add('selected');
 }
 
 function changeColor() {
@@ -68,9 +71,11 @@ function toggleGrid() {
     if (gridHelper) {
         scene.remove(gridHelper);
         gridHelper = null;
+        document.getElementById('toggleGrid').innerText = 'Ativar Grade'; 
     } else {
         gridHelper = new THREE.GridHelper(10, 10);
         scene.add(gridHelper);
+        document.getElementById('toggleGrid').innerText = 'Desativar Grade'; 
     }
 }
 
@@ -84,24 +89,39 @@ function resetScene() {
     if (gridHelper) {
         scene.remove(gridHelper);
         gridHelper = null;
+        document.getElementById('toggleGrid').innerText = 'Ativar Grade'; 
     }
+    resetButtonSelection();
 }
 
-function init() {
-    camera.position.z = 5;
-    animate();
+function resetButtonSelection() {
+    const buttons = document.querySelectorAll('.button-container button');
+    buttons.forEach(button => button.classList.remove('selected'));
 }
 
 function animate() {
     requestAnimationFrame(animate);
+    if (currentObject) {
+        currentObject.rotation.x += 0.01;
+        currentObject.rotation.y += 0.01;
+    }
     renderer.render(scene, camera);
 }
 
+camera.position.z = 5;
+animate();
+
 document.getElementById('start').addEventListener('click', () => {
     document.getElementById('initial-screen').style.display = 'none';
-    document.getElementById('menu').style.display = 'flex';
+    document.getElementById('menu').style.display = 'block';
     document.getElementById('render-container').style.display = 'block';
-    init();
+});
+
+document.getElementById('back').addEventListener('click', () => {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('render-container').style.display = 'none';
+    document.getElementById('initial-screen').style.display = 'block';
+    resetScene();
 });
 
 document.getElementById('cube').addEventListener('click', () => createShape('cube'));
@@ -111,19 +131,11 @@ document.getElementById('cylinder').addEventListener('click', () => createShape(
 document.getElementById('cone').addEventListener('click', () => createShape('cone'));
 document.getElementById('torus').addEventListener('click', () => createShape('torus'));
 document.getElementById('icosahedron').addEventListener('click', () => createShape('icosahedron'));
+
 document.getElementById('changeColor').addEventListener('click', changeColor);
-document.getElementById('addLight').addEventListener('click', addLight);
-document.getElementById('toggleGrid').addEventListener('click', toggleGrid);
 document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.2));
 document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.8));
-document.getElementById('reset').addEventListener('click', resetScene);
-document.getElementById('back').addEventListener('click', () => {
-    document.getElementById('menu').style.display = 'none';
-    document.getElementById('initial-screen').style.display = 'flex';
-});
 
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+document.getElementById('addLight').addEventListener('click', addLight);
+document.getElementById('toggleGrid').addEventListener('click', toggleGrid);
+document.getElementById('reset').addEventListener('click', resetScene);

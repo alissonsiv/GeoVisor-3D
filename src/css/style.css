@@ -78,6 +78,7 @@ button {
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative; 
 }
 
 button i {
@@ -90,9 +91,16 @@ button:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-button:active {
-    transform: translateY(1px); 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+button.selected {
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+}
+
+.grid-status {
+    display: none;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #7fbfff;
 }
 
 #render-container {
