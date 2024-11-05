@@ -16,38 +16,48 @@
             <button id="start">Iniciar Exploração</button>
         </div>
 
-        <div id="menu" style="display: none;">
+        <div id="menu" class="side-menu" style="display: none;">
             <h1>Formas 3D</h1>
-
             <div class="category">
                 <h2>Formas</h2>
                 <div class="button-container">
-                    <button id="cube"><i class="fas fa-cube"></i> Cubo</button>
-                    <button id="sphere"><i class="fas fa-circle"></i> Esfera</button>
-                    <button id="pyramid"><i class="fas fa-exclamation-triangle"></i> Pirâmide</button>
-                    <button id="cylinder"><i class="fas fa-circle-notch"></i> Cilindro</button>
-                    <button id="cone"><i class="fas fa-cogs"></i> Cone</button>
+                    <button id="cube">Cubo</button>
+                    <button id="sphere">Esfera</button>
+                    <button id="pyramid">Pirâmide</button>
+                    <button id="cylinder">Cilindro</button>
+                    <button id="cone">Cone</button>
+                    <button id="torus">Toro</button>
+                    <button id="icosahedron">Icosaedro</button>
                 </div>
             </div>
 
             <div class="category">
                 <h2>Iluminação</h2>
                 <div class="button-container">
-                    <button id="addLight"><i class="fas fa-lightbulb"></i> Adicionar Luz</button>
-                    <button id="toggleGrid"><i class="fas fa-th"></i> Ativar/Desativar Grade</button>
+                    <button id="addLight">Adicionar Luz</button>
+                    <button id="toggleGrid">Ativar/Desativar Grade</button>
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Ferramentas</h2>
+                <div class="button-container">
+                    <button id="changeColor">Mudar Cor</button>
+                    <button id="scaleUp">Aumentar Escala</button>
+                    <button id="scaleDown">Diminuir Escala</button>
                 </div>
             </div>
 
             <div class="category">
                 <h2>Configurações</h2>
                 <div class="button-container">
-                    <button id="reset"><i class="fas fa-redo"></i> Reset</button>
-                    <button id="back"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    <button id="reset">Reset</button>
+                    <button id="back">Voltar</button>
                 </div>
             </div>
         </div>
 
-        <div id="render-container" style="display: none;"></div> 
+        <div id="render-container" style="display: none;"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/script.js"></script>
