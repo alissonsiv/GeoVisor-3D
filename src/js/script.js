@@ -7,6 +7,8 @@ document.getElementById('render-container').appendChild(renderer.domElement);
 let currentObject = null;
 let lights = [];
 let gridHelper = null;
+let lightAdded = false;
+let gridActive = false;
 
 function createShape(shape) {
     if (currentObject) {
@@ -42,9 +44,6 @@ function createShape(shape) {
     const material = new THREE.MeshStandardMaterial({ color: 0x007bff });
     currentObject = new THREE.Mesh(geometry, material);
     scene.add(currentObject);
-
-    resetButtonSelection();
-    document.getElementById(shape).classList.add('selected');
 }
 
 function changeColor() {
@@ -61,21 +60,32 @@ function scaleObject(factor) {
 }
 
 function addLight() {
-    const light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(5, 5, 5);
-    scene.add(light);
-    lights.push(light);
+    if (!lightAdded) {
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+        lights.push(light);
+        lightAdded = true;
+        document.getElementById('addLight').textContent = "Desativar Luz";
+    } else {
+        lights.forEach(light => scene.remove(light));
+        lights = [];
+        lightAdded = false;
+        document.getElementById('addLight').textContent = "Adicionar Luz";
+    }
 }
 
 function toggleGrid() {
-    if (gridHelper) {
+    if (gridActive) {
         scene.remove(gridHelper);
         gridHelper = null;
-        document.getElementById('toggleGrid').innerText = 'Ativar Grade'; 
+        gridActive = false;
+        document.getElementById('toggleGrid').textContent = "Ativar Grade";
     } else {
         gridHelper = new THREE.GridHelper(10, 10);
         scene.add(gridHelper);
-        document.getElementById('toggleGrid').innerText = 'Desativar Grade'; 
+        gridActive = true;
+        document.getElementById('toggleGrid').textContent = "Desativar Grade";
     }
 }
 
@@ -86,17 +96,14 @@ function resetScene() {
     }
     lights.forEach(light => scene.remove(light));
     lights = [];
+    lightAdded = false;
     if (gridHelper) {
         scene.remove(gridHelper);
         gridHelper = null;
-        document.getElementById('toggleGrid').innerText = 'Ativar Grade'; 
     }
-    resetButtonSelection();
-}
-
-function resetButtonSelection() {
-    const buttons = document.querySelectorAll('.button-container button');
-    buttons.forEach(button => button.classList.remove('selected'));
+    
+    document.getElementById('addLight').textContent = "Adicionar Luz";
+    document.getElementById('toggleGrid').textContent = "Ativar Grade";
 }
 
 function animate() {
@@ -117,13 +124,6 @@ document.getElementById('start').addEventListener('click', () => {
     document.getElementById('render-container').style.display = 'block';
 });
 
-document.getElementById('back').addEventListener('click', () => {
-    document.getElementById('menu').style.display = 'none';
-    document.getElementById('render-container').style.display = 'none';
-    document.getElementById('initial-screen').style.display = 'block';
-    resetScene();
-});
-
 document.getElementById('cube').addEventListener('click', () => createShape('cube'));
 document.getElementById('sphere').addEventListener('click', () => createShape('sphere'));
 document.getElementById('pyramid').addEventListener('click', () => createShape('pyramid'));
@@ -133,9 +133,10 @@ document.getElementById('torus').addEventListener('click', () => createShape('to
 document.getElementById('icosahedron').addEventListener('click', () => createShape('icosahedron'));
 
 document.getElementById('changeColor').addEventListener('click', changeColor);
-document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.2));
-document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.8));
+document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.1));
+document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
 
 document.getElementById('addLight').addEventListener('click', addLight);
 document.getElementById('toggleGrid').addEventListener('click', toggleGrid);
+
 document.getElementById('reset').addEventListener('click', resetScene);
