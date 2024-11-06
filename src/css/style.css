@@ -20,18 +20,18 @@ body {
     text-align: center;
     position: absolute;
     top: 50%;
-    left: 50%;  
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .side-menu {
     width: 300px;
     background: #333;
-    padding: 20px;
     color: #e0e0e0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5); 
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
     border-right: 2px solid #007bff;
     overflow-y: auto;
     border-radius: 0 10px 10px 0;
@@ -48,7 +48,7 @@ body {
 .category {
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .category h2 {
@@ -72,13 +72,13 @@ button {
     font-size: 16px;
     margin: 5px 0;
     cursor: pointer;
-    border-radius: 8px; 
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     gap: 10px;
-    position: relative; 
+    position: relative;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
 }
 
 button i {
@@ -87,7 +87,7 @@ button i {
 
 button:hover {
     background: #005bb5;
-    transform: translateY(-3px); 
+    transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -104,22 +104,22 @@ button.selected {
 }
 
 #render-container {
-    flex: 1; 
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff; 
+    background-color: #ffffff;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
 }
 
-#menu, #render-container {
-    display: none;
-}
-
 .show {
     display: block;
+}
+
+#menu, #render-container {
+    display: none;
 }
 
 canvas {

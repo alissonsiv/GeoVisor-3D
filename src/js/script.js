@@ -3,6 +3,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('render-container').appendChild(renderer.domElement);
+camera.position.z = 5;
 
 let currentObject = null;
 let lights = [];
@@ -11,34 +12,17 @@ let lightAdded = false;
 let gridActive = false;
 
 function createShape(shape) {
-    if (currentObject) {
-        scene.remove(currentObject);
-    }
-
+    if (currentObject) scene.remove(currentObject);
     let geometry;
 
     switch (shape) {
-        case 'cube':
-            geometry = new THREE.BoxGeometry();
-            break;
-        case 'sphere':
-            geometry = new THREE.SphereGeometry(1, 32, 32);
-            break;
-        case 'pyramid':
-            geometry = new THREE.ConeGeometry(1, 2, 4);
-            break;
-        case 'cylinder':
-            geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
-            break;
-        case 'cone':
-            geometry = new THREE.ConeGeometry(1, 2, 32);
-            break;
-        case 'torus':
-            geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
-            break;
-        case 'icosahedron':
-            geometry = new THREE.IcosahedronGeometry(1);
-            break;
+        case 'cube': geometry = new THREE.BoxGeometry(); break;
+        case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
+        case 'pyramid': geometry = new THREE.ConeGeometry(1, 2, 4); break;
+        case 'cylinder': geometry = new THREE.CylinderGeometry(1, 1, 2, 32); break;
+        case 'cone': geometry = new THREE.ConeGeometry(1, 2, 32); break;
+        case 'torus': geometry = new THREE.TorusGeometry(1, 0.4, 16, 100); break;
+        case 'icosahedron': geometry = new THREE.IcosahedronGeometry(1); break;
     }
 
     const material = new THREE.MeshStandardMaterial({ color: 0x007bff });
@@ -54,9 +38,7 @@ function changeColor() {
 }
 
 function scaleObject(factor) {
-    if (currentObject) {
-        currentObject.scale.multiplyScalar(factor);
-    }
+    if (currentObject) currentObject.scale.multiplyScalar(factor);
 }
 
 function addLight() {
@@ -101,7 +83,7 @@ function resetScene() {
         scene.remove(gridHelper);
         gridHelper = null;
     }
-    
+
     document.getElementById('addLight').textContent = "Adicionar Luz";
     document.getElementById('toggleGrid').textContent = "Ativar Grade";
 }
@@ -115,7 +97,7 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-camera.position.z = 5;
+addLight();
 animate();
 
 document.getElementById('start').addEventListener('click', () => {
@@ -135,8 +117,6 @@ document.getElementById('icosahedron').addEventListener('click', () => createSha
 document.getElementById('changeColor').addEventListener('click', changeColor);
 document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.1));
 document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
-
 document.getElementById('addLight').addEventListener('click', addLight);
 document.getElementById('toggleGrid').addEventListener('click', toggleGrid);
-
 document.getElementById('reset').addEventListener('click', resetScene);

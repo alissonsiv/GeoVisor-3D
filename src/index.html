@@ -10,13 +10,13 @@
 </head>
 <body>
     <div id="container">
-        <div id="initial-screen">
+        <section id="initial-screen">
             <h1>Bem-vindo ao Explorador de Formas 3D!</h1>
             <p>Aqui você pode explorar diferentes formas 3D interativamente.</p>
             <button id="start">Iniciar Exploração</button>
-        </div>
+        </section>
 
-        <div id="menu" class="side-menu" style="display: none;">
+        <aside id="menu" class="side-menu hidden">
             <h1>Formas 3D</h1>
             <div class="category">
                 <h2>Formas</h2>
@@ -55,9 +55,9 @@
                     <button id="back">Voltar</button>
                 </div>
             </div>
-        </div>
+        </aside>
 
-        <div id="render-container" style="display: none;"></div>
+        <div id="render-container" class="hidden"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/script.js"></script>
