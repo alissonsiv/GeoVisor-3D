@@ -126,3 +126,20 @@ canvas {
     width: 100%;
     height: 100%;
 }
+
+.category button {
+    background: #28a745; 
+}
+
+.category button:hover {
+    background: #218838;
+}
+
+.category h2 {
+    color: #66c2a5;
+    border-left: 3px solid #28a745;
+}
+
+.category button.selected {
+    background: #218838;
+}

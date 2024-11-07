@@ -8,6 +8,8 @@ camera.position.z = 5;
 let currentObject = null;
 let lights = [];
 let lightAdded = false;
+let isRotating = false;
+let gridVisible = false;
 
 function createShape(shape) {
     if (currentObject) scene.remove(currentObject);
@@ -68,12 +70,30 @@ function resetScene() {
     document.getElementById('addLight').textContent = "Adicionar Luz";
 }
 
+function rotateObject() {
+    if (currentObject) {
+        isRotating = true;
+    }
+}
+
+function stopRotation() {
+    isRotating = false;
+}
+
+function moveObject(axis, direction) {
+    if (currentObject) {
+        currentObject.position[axis] += direction;
+    }
+}
+
 function animate() {
     requestAnimationFrame(animate);
-    if (currentObject) {
+
+    if (currentObject && isRotating) {
         currentObject.rotation.x += 0.01;
         currentObject.rotation.y += 0.01;
     }
+
     renderer.render(scene, camera);
 }
 
@@ -100,3 +120,10 @@ document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1
 document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
 document.getElementById('addLight').addEventListener('click', addLight);
 document.getElementById('reset').addEventListener('click', resetScene);
+
+document.getElementById('rotateObject').addEventListener('click', rotateObject);
+document.getElementById('stopRotation').addEventListener('click', stopRotation);
+document.getElementById('moveUp').addEventListener('click', () => moveObject('y', 0.1));
+document.getElementById('moveDown').addEventListener('click', () => moveObject('y', -0.1));
+document.getElementById('moveLeft').addEventListener('click', () => moveObject('x', -0.1));
+document.getElementById('moveRight').addEventListener('click', () => moveObject('x', 0.1));
