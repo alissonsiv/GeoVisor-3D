@@ -7,9 +7,7 @@ camera.position.z = 5;
 
 let currentObject = null;
 let lights = [];
-let gridHelper = null;
 let lightAdded = false;
-let gridActive = false;
 
 function createShape(shape) {
     if (currentObject) scene.remove(currentObject);
@@ -21,8 +19,9 @@ function createShape(shape) {
         case 'pyramid': geometry = new THREE.ConeGeometry(1, 2, 4); break;
         case 'cylinder': geometry = new THREE.CylinderGeometry(1, 1, 2, 32); break;
         case 'cone': geometry = new THREE.ConeGeometry(1, 2, 32); break;
-        case 'torus': geometry = new THREE.TorusGeometry(1, 0.4, 16, 100); break;
         case 'icosahedron': geometry = new THREE.IcosahedronGeometry(1); break;
+        case 'tetrahedron': geometry = new THREE.TetrahedronGeometry(1); break;
+        case 'dodecahedron': geometry = new THREE.DodecahedronGeometry(1); break;
     }
 
     const material = new THREE.MeshStandardMaterial({ color: 0x007bff });
@@ -57,20 +56,6 @@ function addLight() {
     }
 }
 
-function toggleGrid() {
-    if (gridActive) {
-        scene.remove(gridHelper);
-        gridHelper = null;
-        gridActive = false;
-        document.getElementById('toggleGrid').textContent = "Ativar Grade";
-    } else {
-        gridHelper = new THREE.GridHelper(10, 10);
-        scene.add(gridHelper);
-        gridActive = true;
-        document.getElementById('toggleGrid').textContent = "Desativar Grade";
-    }
-}
-
 function resetScene() {
     if (currentObject) {
         scene.remove(currentObject);
@@ -79,13 +64,8 @@ function resetScene() {
     lights.forEach(light => scene.remove(light));
     lights = [];
     lightAdded = false;
-    if (gridHelper) {
-        scene.remove(gridHelper);
-        gridHelper = null;
-    }
 
     document.getElementById('addLight').textContent = "Adicionar Luz";
-    document.getElementById('toggleGrid').textContent = "Ativar Grade";
 }
 
 function animate() {
@@ -111,12 +91,12 @@ document.getElementById('sphere').addEventListener('click', () => createShape('s
 document.getElementById('pyramid').addEventListener('click', () => createShape('pyramid'));
 document.getElementById('cylinder').addEventListener('click', () => createShape('cylinder'));
 document.getElementById('cone').addEventListener('click', () => createShape('cone'));
-document.getElementById('torus').addEventListener('click', () => createShape('torus'));
 document.getElementById('icosahedron').addEventListener('click', () => createShape('icosahedron'));
+document.getElementById('tetrahedron').addEventListener('click', () => createShape('tetrahedron'));
+document.getElementById('dodecahedron').addEventListener('click', () => createShape('dodecahedron'));
 
 document.getElementById('changeColor').addEventListener('click', changeColor);
 document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.1));
 document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
 document.getElementById('addLight').addEventListener('click', addLight);
-document.getElementById('toggleGrid').addEventListener('click', toggleGrid);
 document.getElementById('reset').addEventListener('click', resetScene);
