@@ -128,7 +128,7 @@ canvas {
 }
 
 .category button {
-    background: #28a745; 
+    background: #28a745;
 }
 
 .category button:hover {
@@ -142,4 +142,46 @@ canvas {
 
 .category button.selected {
     background: #218838;
+}
+
+.color-palette {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.hidden {
+    display: none;
+}
+
+#closePalette {
+    background: #0d4d1b;  
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#closePalette:hover {
+    background: #06270d;
 }

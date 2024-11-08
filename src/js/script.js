@@ -31,13 +31,6 @@ function createShape(shape) {
     scene.add(currentObject);
 }
 
-function changeColor() {
-    if (currentObject) {
-        const color = Math.floor(Math.random() * 0xffffff);
-        currentObject.material.color.setHex(color);
-    }
-}
-
 function scaleObject(factor) {
     if (currentObject) currentObject.scale.multiplyScalar(factor);
 }
@@ -97,6 +90,27 @@ function animate() {
     renderer.render(scene, camera);
 }
 
+const colorPalette = document.getElementById('colorPalette');
+const changeColorButton = document.getElementById('changeColor');
+const closePaletteButton = document.getElementById('closePalette');
+
+changeColorButton.addEventListener('click', () => {
+    colorPalette.classList.toggle('hidden');
+});
+
+document.querySelectorAll('.color-option').forEach(colorOption => {
+    colorOption.addEventListener('click', (event) => {
+        const selectedColor = event.target.getAttribute('data-color');
+        if (currentObject) {
+            currentObject.material.color.set(selectedColor);
+        }
+    });
+});
+
+closePaletteButton.addEventListener('click', () => {
+    colorPalette.classList.add('hidden');
+});
+
 addLight();
 animate();
 
@@ -115,7 +129,6 @@ document.getElementById('icosahedron').addEventListener('click', () => createSha
 document.getElementById('tetrahedron').addEventListener('click', () => createShape('tetrahedron'));
 document.getElementById('dodecahedron').addEventListener('click', () => createShape('dodecahedron'));
 
-document.getElementById('changeColor').addEventListener('click', changeColor);
 document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.1));
 document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
 document.getElementById('addLight').addEventListener('click', addLight);
