@@ -168,8 +168,8 @@ canvas {
     display: none;
 }
 
-#closePalette {
-    background: #0d4d1b;  
+#closePalette, #closeScale {
+    background: #d9534f;  
     color: white;
     border: none;
     padding: 10px;
@@ -180,8 +180,59 @@ canvas {
     display: block;
     width: 100%;
     text-align: center;
+    transition: background-color 0.3s ease;
 }
 
-#closePalette:hover {
-    background: #06270d;
+#closePalette:hover, #closeScale:hover {
+    background: #c9302c;
+}
+
+#closePalette:active, #closeScale:active {
+    background: #b52b2b;
+}
+
+#scaleRange {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#scaleValue {
+    font-size: 16px;
+    color: #f1c40f;
+    font-weight: bold;
+    margin-top: 5px;
+    display: block;
+}
+
+#scaleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#scaleContainer.hidden {
+    display: none;
+}
+
+.close-button {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+    background: #c9302c;
+}
+
+.close-button:active {
+    background: #b52b2b;
 }

@@ -11,6 +11,8 @@ let lightAdded = false;
 let isRotating = false;
 let gridVisible = false;
 
+let currentScale = 1;
+
 function createShape(shape) {
     if (currentObject) scene.remove(currentObject);
     let geometry;
@@ -32,8 +34,22 @@ function createShape(shape) {
 }
 
 function scaleObject(factor) {
-    if (currentObject) currentObject.scale.multiplyScalar(factor);
+    if (currentObject) {
+        currentScale *= factor;
+        currentObject.scale.set(currentScale, currentScale, currentScale);
+        document.getElementById('scaleValue').textContent = `Escala: ${currentScale.toFixed(1)}x`;
+        document.getElementById('scaleRange').value = currentScale;
+    }
 }
+
+document.getElementById('scaleRange').addEventListener('input', (event) => {
+    const scaleValue = parseFloat(event.target.value);
+    if (currentObject) {
+        currentObject.scale.set(scaleValue, scaleValue, scaleValue);
+        currentScale = scaleValue;
+        document.getElementById('scaleValue').textContent = `Escala: ${currentScale.toFixed(1)}x`;
+    }
+});
 
 function addLight() {
     if (!lightAdded) {
@@ -129,8 +145,14 @@ document.getElementById('icosahedron').addEventListener('click', () => createSha
 document.getElementById('tetrahedron').addEventListener('click', () => createShape('tetrahedron'));
 document.getElementById('dodecahedron').addEventListener('click', () => createShape('dodecahedron'));
 
-document.getElementById('scaleUp').addEventListener('click', () => scaleObject(1.1));
-document.getElementById('scaleDown').addEventListener('click', () => scaleObject(0.9));
+document.getElementById('openScale').addEventListener('click', () => {
+    document.getElementById('scaleContainer').classList.remove('hidden');
+});
+
+document.getElementById('closeScale').addEventListener('click', () => {
+    document.getElementById('scaleContainer').classList.add('hidden');
+});
+
 document.getElementById('addLight').addEventListener('click', addLight);
 document.getElementById('reset').addEventListener('click', resetScene);
 
