@@ -8,9 +8,7 @@ camera.position.z = 5;
 let currentObject = null;
 let lights = [];
 let lightAdded = false;
-let isRotating = false;
-let gridVisible = false;
-
+let isRotating = false; 
 let currentScale = 1;
 
 function createShape(shape) {
@@ -75,18 +73,12 @@ function resetScene() {
     lights.forEach(light => scene.remove(light));
     lights = [];
     lightAdded = false;
-
     document.getElementById('addLight').textContent = "Adicionar Luz";
 }
 
-function rotateObject() {
-    if (currentObject) {
-        isRotating = true;
-    }
-}
-
-function stopRotation() {
-    isRotating = false;
+function toggleRotation() {
+    isRotating = !isRotating;
+    document.getElementById('toggleRotation').textContent = isRotating ? "Parar Rotação" : "Iniciar Rotação";
 }
 
 function moveObject(axis, direction) {
@@ -156,8 +148,7 @@ document.getElementById('closeScale').addEventListener('click', () => {
 document.getElementById('addLight').addEventListener('click', addLight);
 document.getElementById('reset').addEventListener('click', resetScene);
 
-document.getElementById('rotateObject').addEventListener('click', rotateObject);
-document.getElementById('stopRotation').addEventListener('click', stopRotation);
+document.getElementById('toggleRotation').addEventListener('click', toggleRotation);
 document.getElementById('moveUp').addEventListener('click', () => moveObject('y', 0.1));
 document.getElementById('moveDown').addEventListener('click', () => moveObject('y', -0.1));
 document.getElementById('moveLeft').addEventListener('click', () => moveObject('x', -0.1));
