@@ -128,6 +128,14 @@ document.getElementById('start').addEventListener('click', () => {
     document.getElementById('render-container').style.display = 'block';
 });
 
+// Evento para o botão de "Voltar"
+document.getElementById('back').addEventListener('click', () => {
+    document.getElementById('initial-screen').style.display = 'flex';  
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('render-container').style.display = 'none';
+});
+
+
 document.getElementById('cube').addEventListener('click', () => createShape('cube'));
 document.getElementById('sphere').addEventListener('click', () => createShape('sphere'));
 document.getElementById('pyramid').addEventListener('click', () => createShape('pyramid'));
