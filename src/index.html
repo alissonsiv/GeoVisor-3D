@@ -11,24 +11,24 @@
 <body>
     <div id="container">
         <section id="initial-screen">
-            <h1>Bem-vindo ao Explorador de Formas 3D!</h1>
-            <p>Aqui você pode explorar diferentes formas 3D interativamente.</p>
+            <h1>Bem-vindo ao GeoVisor 3D!</h1>
+            <p>Explore diferentes geometrias tridimensionais de forma interativa.</p>
             <button id="start">Iniciar Exploração</button>
         </section>
 
         <aside id="menu" class="side-menu hidden">
-            <h1>Formas 3D</h1>
+            <h1>GeoVisor 3D</h1>
             <div class="category">
                 <h2>Formas</h2>
                 <div class="button-container">
+                    <button id="tetrahedron">Tetraedro</button>
                     <button id="cube">Cubo</button>
-                    <button id="sphere">Esfera</button>
+                    <button id="dodecahedron">Dodecaedro</button>
+                    <button id="icosahedron">Icosaedro</button>
+                    <button id="cone">Cone</button>
                     <button id="pyramid">Pirâmide</button>
                     <button id="cylinder">Cilindro</button>
-                    <button id="cone">Cone</button>
-                    <button id="icosahedron">Icosaedro</button>
-                    <button id="tetrahedron">Tetraedro</button>
-                    <button id="dodecahedron">Dodecaedro</button>
+                    <button id="sphere">Esfera</button>
                 </div>
             </div>
 
@@ -41,6 +41,10 @@
 
             <div class="category">
                 <h2>Ajustes do Objeto</h2>
+                <div class="button-container">
+                    <button id="toggleRotation">Iniciar Rotação</button>
+                </div>
+
                 <div class="button-container">
                     <button id="changeColor">Mudar Cor</button>
                     <div class="color-palette hidden" id="colorPalette">
@@ -67,10 +71,6 @@
                         <span id="scaleValue">Escala: 1x</span>
                         <button id="closeScale" class="close-button">Fechar</button>
                     </div>
-                </div>
-
-                <div class="button-container">
-                    <button id="toggleRotation">Iniciar Rotação</button>
                 </div>
             </div>
 

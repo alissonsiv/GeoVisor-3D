@@ -128,22 +128,21 @@ document.getElementById('start').addEventListener('click', () => {
     document.getElementById('render-container').style.display = 'block';
 });
 
-// Evento para o botão de "Voltar"
 document.getElementById('back').addEventListener('click', () => {
     document.getElementById('initial-screen').style.display = 'flex';  
     document.getElementById('menu').style.display = 'none';
     document.getElementById('render-container').style.display = 'none';
 });
 
-
+document.getElementById('tetrahedron').addEventListener('click', () => createShape('tetrahedron'));
 document.getElementById('cube').addEventListener('click', () => createShape('cube'));
-document.getElementById('sphere').addEventListener('click', () => createShape('sphere'));
+document.getElementById('dodecahedron').addEventListener('click', () => createShape('dodecahedron'));
+document.getElementById('icosahedron').addEventListener('click', () => createShape('icosahedron'));
+document.getElementById('cone').addEventListener('click', () => createShape('cone'));
 document.getElementById('pyramid').addEventListener('click', () => createShape('pyramid'));
 document.getElementById('cylinder').addEventListener('click', () => createShape('cylinder'));
-document.getElementById('cone').addEventListener('click', () => createShape('cone'));
-document.getElementById('icosahedron').addEventListener('click', () => createShape('icosahedron'));
-document.getElementById('tetrahedron').addEventListener('click', () => createShape('tetrahedron'));
-document.getElementById('dodecahedron').addEventListener('click', () => createShape('dodecahedron'));
+document.getElementById('sphere').addEventListener('click', () => createShape('sphere'));
+
 
 document.getElementById('openScale').addEventListener('click', () => {
     document.getElementById('scaleContainer').classList.remove('hidden');
